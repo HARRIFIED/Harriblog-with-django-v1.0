@@ -1,0 +1,22 @@
+h1
+{
+    color: rgb(241, 166, 67);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: 250mm;
+    font-weight: bolder;
+    font-stretch: ultra-expanded;
+    font-style: normal;
+
+    
+}
+h2
+{
+    background-size: 0vmax;
+    background-position: center;
+    color:rgb(190, 106, 46);
+    font-family: cursive;
+    font-size: 5mm;
+    font-weight: 100;
+    font-style: italic;
+    
+}

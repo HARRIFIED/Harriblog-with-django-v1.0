@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Limelight&family=Roboto&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="HandheldFriendly" content="true"/>
+        <title>blog category</title>
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    </head>
+        <body>
+        {% if category_posts  %}
+              
+
+                <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{% url 'home' %}">harriblog</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'add_post' %}">New Post</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'add_category' %}">Add Category</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                    {% endif %}
+                        <li class="nav-item">
+                           <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                        </li>
+                        {% if category_menu %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Blog Categories
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                {% for item in category_menu  %}
+                                <li><a class="dropdown-item" href="{% url 'category' item %}">{{ item }}</a></li>
+                                {% endfor %}
+                                
+                            </ul>
+                        </li> 
+                        {% endif %} 
+                        <li class="nav-item">
+                           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </form> 
+                    </div>                       
+                </div>
+                </nav>
+                <br/>
+          
+                            {% comment %} <li>
+                                <a href="{% url 'add_post' %}">New Post</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'register' %}">Register</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'login' %}">login</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'login' %}">logout</a>
+                            </li> {% endcomment %}
+                        
+                    
+                    
+                    {% comment %} <div class="showcase-wrapper">
+                        <div class="overlay"></div>
+                        <div class="showcase-content">
+                            <h1>Welcome to HarriBlog</h1>
+                            <h2>...bringing you the latest gists</h2>
+                        </div>
+                        <div class="arrow-wrap">
+                            <i id="down-arrow" class="fas fa-chevron-down"></i>
+                        </div>
+                    </div> {% endcomment %}
+        
+        
+                <div class="show-case-content" style="font-size: 15px;display: inline-flex;text-align: center;">
+                    <p>..Latest, Gossips, life hacks articles, Entertainments, and many more......</p>
+                </div>
+                <hr/>
+                <ul>
+                <div class="board">
+                <div class="container con_style">
+                <div class="row" style="margin-bottom: 33px;">
+                <div class="col-md-9 main_board" style="padding-right: 20px;">
+                <div class="row" style="padding: 0px 15px;">
+                <div class="col-mid-12">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="meta" style="font-size: 15px;display: inline-flex;">
+                <div class="img_view" style="overflow: hidden;">
+                <article class="story_block">
+                <h1 class="story_title yels"></h1>
+
+
+                <div class="container">
+                <h1>{{ categories }}</h1>
+                {% for post in category_posts  %}
+                    <l1><a href="{% url 'article-detail' post.pk %}">{{ post.title}}</a> -
+                             <small><a href="{% url 'category' post.category %}">{{ post.category}}</a> - by {{ post.author.first_name}} - 
+                             {{ post.post_date}}</small><br/>
+                             {{ post.snippet|safe}}
+                             {% comment %} {{ post.body|slice:"198"|safe}} {% endcomment %}
+                             ...<a href="{% url 'article-detail' post.pk %}">Read more</a><hr/>
+                            <br/></l1>
+
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>    
+                {% endfor %}
+                </div>
+
+        {% else %}
+          PageDoesnotExist<br/><br/>
+           <a href="{% url 'home' %}"<button type="button" class="btn btn-light">Back</buttonBack</button></a>
+
+        
+        {% endif %}
+        
+                
+        </body>
+    </html>
+{% endblock  %}
